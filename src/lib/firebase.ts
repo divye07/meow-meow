@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // Import getAuth
+
 // Removed getStorage import
 
 // Your web app's Firebase configuration
@@ -24,6 +26,8 @@ if (typeof window !== 'undefined') {
 }
 
 const db = getFirestore(app);
+const auth = getAuth(app); // Initialize Firebase Auth
+
 // Removed storage initialization
 
-export { app, analytics, db }; // Removed storage from export 
+export { app, analytics, db, auth }; // Export auth 

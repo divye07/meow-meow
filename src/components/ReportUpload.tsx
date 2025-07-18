@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { useState, useRef, useEffect } from "react";
+import { db, auth } from "@/lib/firebase"; // Import auth
+import { collection, addDoc, Timestamp, query, where, getDocs } from "firebase/firestore"; // Add query, where, getDocs
+import { onAuthStateChanged, User } from "firebase/auth"; // Import auth functions and User type
 
 export default function ReportUpload() {
   const [file, setFile] = useState<File | null>(null);
@@ -10,6 +11,15 @@ export default function ReportUpload() {
   const [uploading, setUploading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [user, setUser] = useState<User | null>(null); // State to hold authenticated user
+
+  // Listen for auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -29,6 +39,12 @@ export default function ReportUpload() {
     setUploading(true);
     setMessage("Uploading...");
 
+    if (!user) {
+      setMessage("Error: You must be logged in to upload reports.");
+      setUploading(false);
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -46,7 +62,9 @@ export default function ReportUpload() {
       const result = await response.json();
       const downloadURL = result.url;
 
+      // Save report metadata to Firestore with userId
       await addDoc(collection(db, "medicalReports"), {
+        userId: user.uid, // Store the user's ID
         fileName: file.name,
         fileType: file.type,
         fileSize: file.size,
@@ -120,7 +138,8 @@ export default function ReportUpload() {
           "Upload Report"
         )}
       </button>
-      {message && (
+      {!user && <p className="mt-4 p-3 rounded-md text-center bg-yellow-100 text-yellow-700 font-medium">Please sign in to upload medical reports.</p>}
+      {message && user && (
         <p className={`mt-4 p-3 rounded-md text-center ${message.includes("success") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"} font-medium`}>
           {message}
         </p>
