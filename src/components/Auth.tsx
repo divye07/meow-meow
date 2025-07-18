@@ -34,13 +34,13 @@ export default function Auth({ currentUser }: AuthProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 mb-8 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-100">
+    <div className="flex flex-col items-center justify-center space-y-4 mb-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 w-full max-w-md mx-auto transition-colors duration-300">
       {currentUser ? (
         <div className="text-center">
-          <p className="text-lg font-semibold text-gray-800">Welcome, {currentUser.displayName || currentUser.email}!</p>
+          <p className="text-lg font-semibold text-gray-800 dark:text-gray-100">Welcome, {currentUser.displayName || currentUser.email}!</p>
           <button
             onClick={handleSignOut}
-            className="mt-3 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200"
+            className="mt-3 px-5 py-2 bg-red-600 hover:bg-red-700 focus:ring-red-500 text-white font-semibold rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 w-full sm:w-auto"
           >
             Sign Out
           </button>
@@ -48,7 +48,7 @@ export default function Auth({ currentUser }: AuthProps) {
       ) : (
         <button
           onClick={signInWithGoogle}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 text-white font-semibold rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 w-full sm:w-auto"
         >
           Sign in with Google
         </button>

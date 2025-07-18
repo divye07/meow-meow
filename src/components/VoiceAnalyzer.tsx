@@ -256,55 +256,55 @@ export default function VoiceAnalyzer() {
   };
 
   return (
-    <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl space-y-8 border border-gray-100 max-w-sm sm:max-w-3xl mx-auto my-5 sm:my-10">
-      <h2 className="text-3xl font-bold text-center text-gray-800">AI Medical Analyzer</h2>
-      <p className="text-center text-gray-600">Type your question or symptom in Hindi to get a possible reason and solutions based on medical history.</p>
+    <div className="bg-white dark:bg-gray-900 p-2 xs:p-3 sm:p-6 md:p-8 rounded-2xl shadow-xl space-y-6 sm:space-y-8 border border-gray-100 dark:border-gray-800 max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl w-full mx-auto my-3 sm:my-6 md:my-10 transition-colors duration-300">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 dark:text-white">AI Medical Analyzer</h2>
+      <p className="text-center text-gray-600 dark:text-gray-300 text-sm sm:text-base">Type your question or symptom in Hindi to get a possible reason and solutions based on medical history.</p>
 
       <div>
-        <label htmlFor="user-input" className="block text-sm font-medium text-gray-700 mb-2">Your Question/Symptom:</label>
+        <label htmlFor="user-input" className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Your Question/Symptom:</label>
         <textarea
           id="user-input"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-y min-h-[80px]"
+          className="w-full p-2 sm:p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 transition-colors duration-200 resize-y min-h-[60px] sm:min-h-[80px] text-sm sm:text-base"
           rows={3}
           placeholder="Type in Hindi, e.g., 'मुझे बुखार और खांसी है' (I have fever and cough)"
           value={userTextInput}
           onChange={(e) => setUserTextInput(e.target.value)}
-          disabled={!user} // Disable if not logged in
+          disabled={!user}
         ></textarea>
       </div>
 
       <button
         onClick={sendToGemini}
-        disabled={!userTextInput.trim() || !user} // Disable if not logged in
-        className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        disabled={!userTextInput.trim() || !user}
+        className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-800 dark:to-indigo-900 text-white font-semibold rounded-xl shadow-md hover:from-blue-600 hover:to-indigo-700 dark:hover:from-blue-900 dark:hover:to-indigo-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text-base sm:text-lg"
       >
         Send to AI for Analysis
       </button>
 
-      {!user && <p className="mt-4 p-3 rounded-md text-center bg-yellow-100 text-yellow-700 font-medium">Please sign in to use the AI medical analyzer.</p>}
+      {!user && <p className="mt-4 p-3 rounded-md text-center bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200 font-medium">Please sign in to use the AI medical analyzer.</p>}
 
       {message && user && (
-        <p className={`mt-4 p-3 rounded-md text-center ${message.includes("Error") ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"} font-medium`}>
+        <p className={`mt-4 p-3 rounded-md text-center ${message.includes("Error") ? "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200" : "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200"} font-medium`}>
           {message}
         </p>
       )}
 
       {aiResponse && (
-        <div className="bg-green-50 p-6 rounded-lg shadow-inner border border-green-200 space-y-4">
-          <h3 className="text-xl font-bold text-green-800">AI Response:</h3>
+        <div className="bg-green-50 dark:bg-green-900 p-6 rounded-lg shadow-inner border border-green-200 dark:border-green-800 space-y-4">
+          <h3 className="text-xl font-bold text-green-800 dark:text-green-200">AI Response:</h3>
           <div>
-            <p className="text-md font-semibold text-gray-700 mb-1">Possible Reason:</p>
-            <p className="text-gray-800 leading-relaxed">{aiResponse.possibleReason}</p>
+            <p className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-1">Possible Reason:</p>
+            <p className="text-gray-800 dark:text-gray-100 leading-relaxed">{aiResponse.possibleReason}</p>
           </div>
           <div>
-            <p className="text-md font-semibold text-gray-700 mb-1">Suggested Solutions:</p>
-            <ul className="list-disc list-inside text-gray-800 leading-relaxed pl-4">
+            <p className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-1">Suggested Solutions:</p>
+            <ul className="list-disc list-inside text-gray-800 dark:text-gray-100 leading-relaxed pl-4">
               {aiResponse.suggestedSolutions.map((solution, index) => (
                 <li key={index}>{solution}</li>
               ))}
             </ul>
           </div>
-          <div className="text-sm text-gray-600 border-t pt-3 border-gray-200 italic">
+          <div className="text-sm text-gray-600 dark:text-gray-300 border-t pt-3 border-gray-200 dark:border-gray-700 italic">
             <p className="font-semibold">Disclaimer:</p>
             <p>{aiResponse.disclaimer}</p>
           </div>
@@ -312,20 +312,20 @@ export default function VoiceAnalyzer() {
       )}
 
       <button
-        onClick={() => { if (user) { loadConversationHistory(user.uid); loadMedicalReports(user.uid); } else { setMessage("Please sign in to refresh."); } }} // Reload history to see changes
-        className="w-full px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-        disabled={!user} // Disable if not logged in
+        onClick={() => { if (user) { loadConversationHistory(user.uid); loadMedicalReports(user.uid); } else { setMessage("Please sign in to refresh."); } }}
+        className="w-full px-6 py-3 bg-purple-500 dark:bg-purple-800 text-white font-semibold rounded-lg shadow-md hover:bg-purple-600 dark:hover:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        disabled={!user}
       >
         Refresh Conversations & Reports
       </button>
 
       {user && conversationHistory.length > 0 && (
-        <div className="mt-6 bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200 space-y-4">
-          <h3 className="text-xl font-bold text-gray-800">Conversation History:</h3>
+        <div className="mt-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700 space-y-4">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">Conversation History:</h3>
           <div className="max-h-72 overflow-y-auto pr-2 space-y-3">
             {conversationHistory.map((msg, index) => (
-              <div key={index} className={`p-4 rounded-lg ${msg.sender === "user" ? "bg-blue-100 text-blue-800 self-end text-right" : "bg-green-100 text-green-800 self-start text-left"}`}>
-                <p className="text-xs text-gray-500 mb-1">{msg.sender === "user" ? "You" : "AI"} ({msg.timestamp.toLocaleString()}):</p>
+              <div key={index} className={`p-4 rounded-lg ${msg.sender === "user" ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 self-end text-right" : "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 self-start text-left"}`}>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{msg.sender === "user" ? "You" : "AI"} ({msg.timestamp.toLocaleString()}):</p>
                 {msg.parsedAiResponse ? (
                   <div className="space-y-2 text-left">
                     <p className="text-sm font-semibold">Possible Reason:</p>
@@ -336,7 +336,7 @@ export default function VoiceAnalyzer() {
                         <li key={solIndex}>{solution}</li>
                       ))}
                     </ul>
-                    <p className="text-xs text-gray-600 mt-2 italic">Disclaimer: {msg.parsedAiResponse.disclaimer}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 italic">Disclaimer: {msg.parsedAiResponse.disclaimer}</p>
                   </div>
                 ) : (
                   <p className="text-base leading-relaxed break-words">{msg.text}</p>
@@ -348,15 +348,15 @@ export default function VoiceAnalyzer() {
       )}
 
       {user && medicalReports.length > 0 && (
-        <div className="mt-6 bg-yellow-50 p-6 rounded-lg shadow-inner border border-yellow-200 space-y-4">
-          <h3 className="text-xl font-bold text-yellow-800">Recent Medical Reports:</h3>
+        <div className="mt-6 bg-yellow-50 dark:bg-yellow-900 p-6 rounded-lg shadow-inner border border-yellow-200 dark:border-yellow-800 space-y-4">
+          <h3 className="text-xl font-bold text-yellow-800 dark:text-yellow-200">Recent Medical Reports:</h3>
           <div className="max-h-48 overflow-y-auto pr-2 space-y-3">
             {medicalReports.map((report, index) => (
-              <div key={index} className="p-4 rounded-lg bg-yellow-100 border border-yellow-200">
-                <p className="text-md font-semibold text-yellow-800">File: {report.fileName}</p>
-                <p className="text-sm text-gray-700">Description: {report.description}</p>
-                <p className="text-sm text-gray-600">Uploaded: {report.uploadedAt.toLocaleDateString()}</p>
-                <a href={report.downloadURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm font-medium mt-1 inline-block">View Report</a>
+              <div key={index} className="p-4 rounded-lg bg-yellow-100 dark:bg-yellow-800 border border-yellow-200 dark:border-yellow-700">
+                <p className="text-md font-semibold text-yellow-800 dark:text-yellow-200">File: {report.fileName}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-200">Description: {report.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Uploaded: {report.uploadedAt.toLocaleDateString()}</p>
+                <a href={report.downloadURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline text-sm font-medium mt-1 inline-block">View Report</a>
               </div>
             ))}
           </div>

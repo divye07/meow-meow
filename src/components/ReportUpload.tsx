@@ -87,12 +87,12 @@ export default function ReportUpload() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg space-y-6 border border-gray-200">
-      <h2 className="text-3xl font-bold text-center text-gray-800">Upload Medical Report</h2>
-      <p className="text-center text-gray-600">Upload your medical reports for a comprehensive AI analysis.</p>
+    <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-lg space-y-6 border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto transition-colors duration-300">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 dark:text-gray-100">Upload Medical Report</h2>
+      <p className="text-center text-gray-600 dark:text-gray-300">Upload your medical reports for a comprehensive AI analysis.</p>
 
       <div>
-        <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           Select Report File (PDF, Image, etc.)
         </label>
         <input
@@ -101,19 +101,19 @@ export default function ReportUpload() {
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          className="block w-full text-md text-gray-700
+          className="block w-full text-md text-gray-700 dark:text-gray-200
             file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
             file:text-md file:font-semibold
-            file:bg-blue-100 file:text-blue-700
-            hover:file:bg-blue-200 transition-colors duration-200
+            file:bg-blue-100 dark:file:bg-blue-900 file:text-blue-700 dark:file:text-blue-200
+            hover:file:bg-blue-200 dark:hover:file:bg-blue-800 transition-colors duration-200
             cursor-pointer"
         />
-        {file && <p className="mt-2 text-sm text-gray-600">Selected file: <span className="font-semibold">{file.name}</span></p>}
+        {file && <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Selected file: <span className="font-semibold">{file.name}</span></p>}
       </div>
       
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           Description (e.g., &quot;Lab results from Oct 2023&quot;)
         </label>
         <input
@@ -123,14 +123,14 @@ export default function ReportUpload() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Add a brief description for the report"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-200"
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200"
         />
       </div>
 
       <button
         onClick={handleUpload}
         disabled={uploading || !file}
-        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-md text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        className="w-full flex justify-center py-3 px-6 border border-transparent rounded-xl shadow-md text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
       >
         {uploading ? (
           <span className="flex items-center justify-center"><svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.75V6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M17.127 6.873L16.066 7.934" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M19.25 12H17.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M17.127 17.127L16.066 16.066" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 19.25V17.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.87305 17.127L7.93405 16.066" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.75 12H6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.87305 6.873L7.93405 7.934" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> Uploading...</span>
@@ -138,9 +138,9 @@ export default function ReportUpload() {
           "Upload Report"
         )}
       </button>
-      {!user && <p className="mt-4 p-3 rounded-md text-center bg-yellow-100 text-yellow-700 font-medium">Please sign in to upload medical reports.</p>}
+      {!user && <p className="mt-4 p-3 rounded-md text-center bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200 font-medium">Please sign in to upload medical reports.</p>}
       {message && user && (
-        <p className={`mt-4 p-3 rounded-md text-center ${message.includes("success") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"} font-medium`}>
+        <p className={`mt-4 p-3 rounded-md text-center ${message.includes("success") ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"} font-medium`}>
           {message}
         </p>
       )}
